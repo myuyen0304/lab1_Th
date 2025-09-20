@@ -1,0 +1,119 @@
+<%- include('../partials/header') %>
+<div class="container mt-4">
+  <!-- Modal for message/error -->
+  <div
+    class="modal fade"
+    id="alertModal"
+    tabindex="-1"
+    aria-labelledby="alertModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div
+          class="modal-header <%= message ? 'bg-success' : 'bg-danger' %> text-white"
+        >
+          <h5 class="modal-title" id="alertModalLabel">
+            <%= message ? 'Thành công' : 'Lỗi' %>
+          </h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body"><%= message || error %></div>
+      </div>
+    </div>
+  </div>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      var hasAlert = "<%= (message || error) ? 'true' : 'false' %>";
+      if (hasAlert === "true") {
+        var alertModal = new bootstrap.Modal(
+          document.getElementById("alertModal")
+        );
+        alertModal.show();
+      }
+    });
+  </script>
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="mb-0">Danh sách sản phẩm</h2>
+        <a href="/products/new" class="btn btn-success">+ Thêm sản phẩm</a>
+      </div>
+      <div class="table-responsive">
+        <table class="table table-striped align-middle">
+          <thead class="table-light">
+            <tr>
+              <th scope="col">Tên</th>
+              <th scope="col">Giá</th>
+              <th scope="col">Số lượng</th>
+              <th scope="col">Nhà cung cấp</th>
+              <th scope="col" class="text-center">Hành động</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% if (products && products.length === 0) { %>
+            <tr>
+              <td colspan="5" class="text-center text-muted">
+                Chưa có sản phẩm nào.
+              </td>
+            </tr>
+            <% } %> <% products && products.forEach(product => { %>
+            <tr>
+              <td><%= product.name %></td>
+              <td><%= product.price %></td>
+              <td><%= product.quantity %></td>
+              <td><%= product.supplierId ? product.supplierId.name : '' %></td>
+              <td class="text-center">
+                <a
+                  href="/products/edit/<%= product._id %>"
+                  class="btn btn-warning btn-sm me-1"
+                  >Sửa</a
+                >
+                <form
+                  action="/products/delete/<%= product._id %>"
+                  method="POST"
+                  style="display: inline"
+                >
+                  <button
+                    type="submit"
+                    class="btn btn-danger btn-sm"
+                    onclick="return confirm('Xác nhận xóa?')"
+                  >
+                    Xóa
+                  </button>
+                </form>
+              </td>
+            </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<% if (message) { %>
+<script>
+  alert("<%= message %>");
+  if (window.history.replaceState) {
+    const url = new URL(window.location);
+    url.searchParams.delete("message");
+    url.searchParams.delete("error");
+    window.history.replaceState({}, document.title, url.pathname + url.search);
+  }
+</script>
+<% } %> <% if (error) { %>
+<script>
+  alert("<%= error %>");
+  if (window.history.replaceState) {
+    const url = new URL(window.location);
+    url.searchParams.delete("message");
+    url.searchParams.delete("error");
+    window.history.replaceState({}, document.title, url.pathname + url.search);
+  }
+</script>
+<% } %> <%- include('../partials/footer') %>
