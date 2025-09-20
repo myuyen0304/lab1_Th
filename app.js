@@ -39,18 +39,18 @@ app.use("/products", productRoutes);
 
 // 404 Handler
 app.use((req, res) => {
-  res.status(404).render("error", { 
-    error: "Trang không tồn tại", 
-    message: "404 - Not Found" 
+  res.status(404).render("error", {
+    error: "Trang không tồn tại",
+    message: "404 - Not Found",
   });
 });
 
 // Global Error Handler
 app.use((err, req, res, next) => {
   console.error(err.stack);
-  res.status(500).render("error", { 
-    error: "Lỗi server", 
-    message: err.message || "Có lỗi xảy ra" 
+  res.status(500).render("error", {
+    error: "Lỗi server",
+    message: err.message || "Có lỗi xảy ra",
   });
 });
 

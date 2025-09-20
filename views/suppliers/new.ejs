@@ -4,25 +4,49 @@
   <form action="/suppliers/new" method="POST" id="supplierForm">
     <div class="mb-3">
       <label class="form-label">Tên:</label>
-      <input type="text" class="form-control" name="name" id="name" required 
-             pattern="^[a-zA-ZÀ-ỹ\s]+$" 
-             title="Tên chỉ được chứa chữ cái và khoảng trắng, không được chứa số"
-             minlength="2" maxlength="100" />
-      <div class="invalid-feedback">Tên chỉ được chứa chữ cái và khoảng trắng, không được chứa số</div>
+      <input
+        type="text"
+        class="form-control"
+        name="name"
+        id="name"
+        required
+        pattern="^[a-zA-ZÀ-ỹ\s]+$"
+        title="Tên chỉ được chứa chữ cái và khoảng trắng, không được chứa số"
+        minlength="2"
+        maxlength="100"
+      />
+      <div class="invalid-feedback">
+        Tên chỉ được chứa chữ cái và khoảng trắng, không được chứa số
+      </div>
     </div>
     <div class="mb-3">
       <label class="form-label">Địa chỉ:</label>
-      <input type="text" class="form-control" name="address" id="address" required 
-             minlength="5" maxlength="200" />
+      <input
+        type="text"
+        class="form-control"
+        name="address"
+        id="address"
+        required
+        minlength="5"
+        maxlength="200"
+      />
       <div class="invalid-feedback">Địa chỉ phải có ít nhất 5 ký tự</div>
     </div>
     <div class="mb-3">
       <label class="form-label">Số điện thoại:</label>
-      <input type="tel" class="form-control" name="phone" id="phone" required 
-             pattern="^0[0-9]{9}$" 
-             title="Số điện thoại phải có đúng 10 chữ số và bắt đầu bằng số 0"
-             maxlength="10" />
-      <div class="invalid-feedback">Số điện thoại phải có đúng 10 chữ số và bắt đầu bằng số 0</div>
+      <input
+        type="tel"
+        class="form-control"
+        name="phone"
+        id="phone"
+        required
+        pattern="^0[0-9]{9}$"
+        title="Số điện thoại phải có đúng 10 chữ số và bắt đầu bằng số 0"
+        maxlength="10"
+      />
+      <div class="invalid-feedback">
+        Số điện thoại phải có đúng 10 chữ số và bắt đầu bằng số 0
+      </div>
     </div>
     <button type="submit" class="btn btn-primary">Thêm</button>
     <a href="/suppliers" class="btn btn-secondary ms-2">Quay lại</a>
@@ -30,25 +54,27 @@
 </div>
 
 <script>
-// Client-side validation
-document.getElementById('supplierForm').addEventListener('submit', function(e) {
-  const name = document.getElementById('name').value.trim();
-  const phone = document.getElementById('phone').value.trim();
-  
-  // Kiểm tra tên không chứa số
-  if (/\d/.test(name)) {
-    alert('Tên nhà cung cấp không được chứa số!');
-    e.preventDefault();
-    return false;
-  }
-  
-  // Kiểm tra số điện thoại đúng 10 số và bắt đầu bằng 0
-  if (!/^0[0-9]{9}$/.test(phone)) {
-    alert('Số điện thoại phải có đúng 10 chữ số và bắt đầu bằng số 0!');
-    e.preventDefault();
-    return false;
-  }
-});
+  // Client-side validation
+  document
+    .getElementById("supplierForm")
+    .addEventListener("submit", function (e) {
+      const name = document.getElementById("name").value.trim();
+      const phone = document.getElementById("phone").value.trim();
+
+      // Kiểm tra tên không chứa số
+      if (/\d/.test(name)) {
+        alert("Tên nhà cung cấp không được chứa số!");
+        e.preventDefault();
+        return false;
+      }
+
+      // Kiểm tra số điện thoại đúng 10 số và bắt đầu bằng 0
+      if (!/^0[0-9]{9}$/.test(phone)) {
+        alert("Số điện thoại phải có đúng 10 chữ số và bắt đầu bằng số 0!");
+        e.preventDefault();
+        return false;
+      }
+    });
 </script>
 
 <%- include('../partials/footer') %>
